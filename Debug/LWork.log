@@ -1,0 +1,20 @@
+﻿  LWork.cpp
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(28): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(51): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(77): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(116): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(195): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(207): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(216): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(226): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note:  см. объявление "fscanf"
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_3.h(230): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note:  см. объявление "fscanf"
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_7.h(42): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork_4.h(71): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork.cpp(49): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\flatren\documents\visual studio 2015\projects\lwork\lwork.cpp(48): warning C4996: 'mbstowcs': This function or variable may be unsafe. Consider using mbstowcs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdlib.h(920): note:  см. объявление "mbstowcs"
+  LWork.vcxproj -> C:\Users\FLATREN\Documents\Visual Studio 2015\Projects\LWork\Debug\LWork.exe
