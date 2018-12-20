@@ -5,6 +5,7 @@
 
 #define IDS_APP_TITLE			103
 #define SPECIAL_CTRL_CHANGE_T L"Create_new_message_click"
+#define SPECIAL_LOSE		  L"Create_new_message_LOSE"
 #define IDR_MAINFRAME			128
 
 #define IDD_LWORK_DIALOG	102

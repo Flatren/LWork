@@ -16,8 +16,9 @@
 //static UINT IDM_CONNECT = RegisterWindowMessage(SPECIAL_CTRL_CHANGE_T);
 //#define IDM_CONNECT (IDM_CONNECT_)
 char* dataPtr;
-
+HANDLE BackgroundTread;
 char ID_Gamer=0;
+
 std::vector<Image*>* images;
 // √лобальные переменные:
 HINSTANCE hInst;                                // текущий экземпл€р
@@ -66,7 +67,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,_In_opt_ HINSTANCE hPrevInstance,
             DispatchMessage(&msg);
         }
     }
-	
+	thead_work = 0;
 	Delete_Images(images);
 	Read_Write_Choise((char*)lpCmdLine, Config, 1);
 	CloseConnect(hMapFile, dataPtr);
@@ -105,18 +106,41 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
  
    ShowWindow(hWnd, nCmdShow);
-   _beginthread(Paint, 0, (void*)hWnd);
+   BackgroundTread = (HANDLE)_beginthread(Paint, 0, (void*)hWnd);
    UpdateWindow(hWnd);
    return TRUE;
 }
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	
-	if (message ==RegisterWindowMessage(SPECIAL_CTRL_CHANGE_T))
+	if (message == RegisterWindowMessage(SPECIAL_CTRL_CHANGE_T))
 	{
 		InvalidateRect(hWnd, NULL, FALSE);
+		return 0;
 	}
-
+	if (message == RegisterWindowMessage(SPECIAL_LOSE))
+	{
+		if (win)
+		{
+			std::string name = "Player_0 ***WIN***";
+			name[7] += ID_Gamer;
+			wchar_t wc[19];
+			mbstowcs(wc, name.c_str(), 19);
+			MessageBox(NULL, L"Game End", wc, 0);
+		}
+		else
+		{
+			std::string name = "Player_0 ***LOSE***";
+			name[7] += ID_Gamer;
+			wchar_t wc[20];
+			mbstowcs(wc, name.c_str(), 20);
+			MessageBox(NULL, L"Game End", wc, 0);
+		}
+		PostQuitMessage(0);
+		
+	
+		return 0;
+	}
     switch (message)
     {
 		case WM_LBUTTONUP:
@@ -124,7 +148,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//SetWindowText(hWnd, L"player_1");
 			if (Check_Player_Try(dataPtr, ID_Gamer))
 			{
-				dataPtr[1] = ID_Gamer;
+				
 				ClickPaintCircle_(hWnd, dataPtr,ID_Gamer, &Config, images, LOWORD(lParam), HIWORD(lParam));
 			}
 			else
@@ -138,6 +162,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case 27:
 		{
 			PostQuitMessage(0);
+		}break;
+		case 32:
+		{ //остановка потока
+			thead = !thead;
+		}break;
+		case 49:
+		{
+			//	установка	фонового	приоритета
+			SetThreadPriority(BackgroundTread,THREAD_PRIORITY_NORMAL);
+		}break;
+		case 50:
+		{
+			//	установка	фонового	приоритета
+			
+			SetThreadPriority(BackgroundTread, THREAD_PRIORITY_LOWEST);
+		
+		}
+		break;
+		case 51:
+		{
+			//	установка	фонового	приоритета
+			SetThreadPriority(BackgroundTread, THREAD_PROFILING_FLAG_DISPATCH);
 		}
 		break;
 		case 13:
@@ -167,15 +213,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-	//case IDM_CONNECT:
-	//	InvalidateRect(hWnd, NULL, FALSE);
-	//	break;
     case WM_PAINT:
         {
-			//Paint(hWnd);
+			
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
-			//_beginthread(Paint, 0, (void*)Hwnd);
 			CreateFonLine(hWnd, hdc, &Config);
 			PaintCircle_(hdc, dataPtr, &Config, images);
 			EndPaint(hWnd, &ps);
@@ -189,7 +231,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
-	//InvalidateRect(hWnd, NULL, FALSE);
+	
     return 0;
 }
-//броад каст

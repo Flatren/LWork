@@ -15,11 +15,11 @@ void CloseConnect(HANDLE &hMapFile, char* &dataPtr)
 	{
 		UnmapViewOfFile(dataPtr);
 		CloseHandle(hMapFile);
-		MessageBox(NULL, L"", L"delete memory", 0);
+		//MessageBox(NULL, L"", L"delete memory", 0);
 	}
 	else
 	{
 		dataPtr[0] -= 1;
-		MessageBox(NULL, L"", L"minus", 0);
+		//MessageBox(NULL, L"", L"minus", 0);
 	}
 }

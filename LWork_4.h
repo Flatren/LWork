@@ -86,19 +86,22 @@ void ClickPaintCircle_(HWND hWnd, char* _is,char ID_Gamer, ConfigINI* config,std
 		int sizeW = config->size.wight - 17;
 		int x = win_x*config->n / sizeW,
 			y = win_y*config->n / sizeH;
-		if (!_is[x*config->n+y])
-		_is[x*config->n + y] = ID_Gamer % 2 +1;
-		HBITMAP hBitmap = CreateBitmap((*images)[_is[x*config->n + y]-1]->width, (*images)[_is[x*config->n + y]-1]->heigth, 1, 32, (*images)[_is[x*config->n + y]-1]->image);
-		HDC hdc = GetDC(hWnd);
-		HDC memBit = CreateCompatibleDC(hdc);
-		SelectObject(memBit, hBitmap);
-		BitBlt(hdc, x * sizeW / config->n + 1, y * sizeH / config->n + 1, (x+1) * sizeW / config->n , (y+1) * sizeH / config->n, memBit, 0, 0, SRCAND);
-		ReleaseDC(hWnd, hdc);
-		InvalidateRect(hWnd, NULL, FALSE);
-		Check_Game(_is,  x,  y, config->n);
-		DeleteObject(hdc);
-		DeleteObject(memBit);
-		DeleteObject(hBitmap);
+		if (!_is[x*config->n + y])
+		{
+			*(_is - 1) = ID_Gamer;
+			_is[x*config->n + y] = ID_Gamer % 2 + 1;
+			HBITMAP hBitmap = CreateBitmap((*images)[_is[x*config->n + y] - 1]->width, (*images)[_is[x*config->n + y] - 1]->heigth, 1, 32, (*images)[_is[x*config->n + y] - 1]->image);
+			HDC hdc = GetDC(hWnd);
+			HDC memBit = CreateCompatibleDC(hdc);
+			SelectObject(memBit, hBitmap);
+			BitBlt(hdc, x * sizeW / config->n + 1, y * sizeH / config->n + 1, (x + 1) * sizeW / config->n, (y + 1) * sizeH / config->n, memBit, 0, 0, SRCAND);
+			ReleaseDC(hWnd, hdc);
+			InvalidateRect(hWnd, NULL, FALSE);
+			Check_Game(_is, x, y, config->n);
+			DeleteObject(hdc);
+			DeleteObject(memBit);
+			DeleteObject(hBitmap);
+		}
 		}
 	else
 		ClickPaintCircle(hWnd, (bool*)_is, config, win_x, win_y);

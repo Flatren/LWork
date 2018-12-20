@@ -1,6 +1,9 @@
 #pragma once
 #include <windows.h>
 #include <ctime>
+bool thead = 1;//отвечает за приостановку потока
+bool thead_work = 1;//отвечает за работу потока
+bool win = 0;
 void Check_Game(char* dataptr,int x,int y,int n)
 {
 	bool r = true,c=true;
@@ -9,8 +12,15 @@ void Check_Game(char* dataptr,int x,int y,int n)
 		if (r) r= *(dataptr + x*n + i) == *(dataptr + x*n + i - 1 );
 		if (c) c = *(dataptr + i*n + y) == *(dataptr + (i-1)*n +y );
 	}
-	if(r||c)
-		MessageBox(NULL, L"Win", L"Game End", 0);
+	if (r || c)
+	{
+		
+		PostMessage(HWND_BROADCAST, RegisterWindowMessage(SPECIAL_LOSE), 0, 0);
+		win = 1;
+		//PostMessage(FindWindowW(L"LWork", NULL), WM_DESTROY, 0, 0);
+	
+		
+	}
 }
 bool Check_Player_Try(char* dataPtr,int id_g)
 {
@@ -24,7 +34,8 @@ void Paint(void *hWnd)
 {
 	//Sleep(1000);
 	int ti=0,o=10;
-	while (1) {
+	while (thead_work)
+		if(thead) {
 		//
 		Sleep(66);
 		Size size;
@@ -48,25 +59,10 @@ void Paint(void *hWnd)
 		DeleteObject((HBRUSH)GetClassLong((HWND)hWnd, GCLP_HBRBACKGROUND));
 		SetClassLongPtr((HWND)hWnd, GCLP_HBRBACKGROUND, (LONG)hbr);
 		InvalidateRect((HWND)hWnd, NULL, 1);	
-		//Sleep(1000);
+		
 	
 		DeleteObject(hBitmap);
-		//DeleteObject(hbr);
-		/*
-		
-
-		
-		HBITMAP hBitmap = CreateBitmap(cx, cy, 1, 32, mas);
-		
-		SelectObject(memBit, hBitmap);
-		
-		DeleteObject(memBit);
-		DeleteObject(hBitmap);
-		
-		ReleaseDC((HWND)hWnd, hdc);
-		EndPaint((HWND)hWnd, &ps);
-		DeleteObject(hdc);
-		InvalidateRect((HWND)hWnd, NULL, FALSE);*/
+	
 		
 		
 	}
